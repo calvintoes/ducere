@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
 import LoginContainer from './containers/LogInContainer'
+import { connect } from 'reac-redux'
 
 function App() {
 
-  // const store = createStore();
-  
   return (
     <div className="App">
      <LoginContainer />
@@ -13,4 +12,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect()(App);
