@@ -8,7 +8,7 @@ class LoginContainer extends Component {
   constructor(props){
     super(props);
     this.state = {}
-    this.props = postAddNewUser(this.props)
+    // this.props = postAddNewUser(this.props)
   }
 
 
