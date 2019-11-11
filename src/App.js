@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import LoginContainer from './containers/LogInContainer'
-import { connect } from 'reac-redux'
+import { connect } from 'react-redux'
 
 function App() {
 
