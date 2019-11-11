@@ -1,0 +1,52 @@
+.wrapper{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.Login-wrapper{
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  /* background: white; */
+  background: #007991;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right bottom, #78ffd6, #007991);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right bottom, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 55px 55px 37px 55px;
+  margin: 0 auto;
+}
+
+.MuiFormControl-root{
+  margin: 10px 0 
+}
+
+.MuiButtonBase-root{
+  margin: 25px auto 0 !important;
+  padding: 12px !important;
+  width: 200px;
+  
+}
+
+.newAccount-wrapper{
+  margin-top: 30px;
+}
+
+.newAccount {
+  text-decoration: none;
+  color: black;
+  font-size: 1em;
+}
+
+.newAccount:hover{
+  text-decoration: underline;
+  color: white;
+  transition: ease-in-out 0.2s;
+}
