@@ -8,7 +8,7 @@ class LoginContainer extends Component {
   constructor(props){
     super(props);
     this.state = {}
-    // this.props = postAddNewUser(this.props)
+    // this.props.postAddNewUser = postAddNewUser(this.props)
   }
 
 
@@ -17,7 +17,7 @@ class LoginContainer extends Component {
   render(){
 
     return(
-      <LogIn />
+      <LogIn {...this.props} />
     )
   }
 }
@@ -25,12 +25,9 @@ class LoginContainer extends Component {
 function mapStateToProps(state){
   let { store } = state;
 
-  return (
-    this.props = {
-      ...this.props,
+  return {
       ...store
-    }
-  )
+  }
 }
 
 function mapDispatchToProps(dispatch) {

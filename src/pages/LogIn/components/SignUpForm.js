@@ -28,6 +28,7 @@ class SignUpForm extends Component {
   }
 
   render() { 
+    let btnText = this.props.logIn ?  "Create Account" : "Log in";
     return ( 
       <div className="Login">
         <img src="/assets/user.svg" alt="logo" width="100px" />
@@ -71,7 +72,7 @@ class SignUpForm extends Component {
               type="submit"
               variant="contained"
             >
-            Log In
+            {btnText}
             </Button>  
           </FormGroup>
         </Container>
