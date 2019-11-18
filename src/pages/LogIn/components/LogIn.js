@@ -32,7 +32,11 @@ class LogIn extends Component {
 
   render() { 
     let showText =  this.state.signUp ? "Create An Account" : "Have an Account? Log in"
-    let showForm = this.state.signUp ? (<LogInForm {...this.props} signUp={this.state.signUp} logIn={this.state.logIn}/>) : (<SignUpForm {...this.props} signUp={this.state.signUp} logIn={this.state.logIn}/>)
+    let showForm = this.state.signUp ? (
+      <LogInForm {...this.props} signUp={this.state.signUp} logIn={this.state.logIn}/>
+      ) : (
+      <SignUpForm {...this.props} signUp={this.state.signUp} logIn={this.state.logIn}/>
+      )
 
     return ( 
       <Box className="wrapper" style={{backgroundImage:"url('/assets/images/bg-01.jpg')"}}>

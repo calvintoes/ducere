@@ -9,7 +9,7 @@ const getToken = (request, response) => {
   const csrfJSON = {
     csrfToken: req.csrfToken(),
   };
-
+  
   res.json(csrfJSON);
 };
 
@@ -27,37 +27,38 @@ const login = (request, response) => {
   const res = response;
 
   const username = `${req.body.username}`;
-  const password = `${req.body.pass}`;
+  const password = `${req.body.password}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'RAWR! All fields are required' });
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
-  return User.UserModel.authenticate(username, password, (err, User) => {
-    if (err || !User) {
+  return User.UserModel.authenticate(username, password, (err, user) => {
+    if (err || !user) {
       return res.status(401).json({ error: 'Wrong username or password' });
     }
 
-    req.session.User = User.UserModel.toAPI(User);
+    req.session.user = User.UserModel.toAPI(user);
 
-    return res.json({ redirect: '/maker' });
+    return res.json({ message: 'success' });
   });
 };
 
 const signup = (request, response) => {
+  // console.log("controller", request.body)
   const req = request;
   const res = response;
 
   req.body.username = `${req.body.username}`;
-  req.body.pass = `${req.body.pass}`;
-  req.body.pass2 = `${req.body.pass2}`;
+  req.body.pass = `${req.body.password}`;
+  req.body.pass2 = `${req.body.password2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! All my fields are required' });
+    return res.status(400).json({ error: 'All my fields are required' });
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! Passwords do on match' });
+    return res.status(400).json({ error: 'Passwords do on match' });
   }
 
   return User.UserModel.generateHash(req.body.pass, (salt, hash) => {
@@ -68,13 +69,14 @@ const signup = (request, response) => {
     };
 
     const newUser = new User.UserModel(userData);
-    const savePromse = newUser.save();
+    const savePromise = newUser.save();
 
-    savePromse.then(() => {
-      req.sesion.User = User.UserModel.toAPI(newUser);
-      return res.json({ redirect: '/maker' });
+    savePromise.then(() => {
+      req.session.User = User.UserModel.toAPI(newUser);
+      console.log("User created!")
+      return res.json({ message: 'Created Successfully!' });
     });
-    savePromse.catch((err) => {
+    savePromise.catch((err) => {
       console.log(err);
       if (err.code === 11000) return res.status(400).json({ error: 'Username already in use' });
       return res.status(400).json({ error: 'An error occurred' });

@@ -9,6 +9,7 @@ const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
+const redis = require('redis')
 
 const port = process.env.PORT || process.env.NODE_PORT || 5000;
 
@@ -33,19 +34,25 @@ mongoose.connect(dbURL, (err) => {
 //   redisPass = redisURL.auth.split(':')[1];
 // }
 
+// let redisClient = redis.createClient();
+
 const router = require('./router.js');
 
 const app = express();
 app.use('/assets', express.static(path.resolve(`${__dirname}/../public/`)));
 app.use(favicon(`${__dirname}/../public/favicon.ico`));
+app.use(express.json({
+  type: ['application/json', 'text/plain']
+}))
 app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(session({
-  // key: 'sessionid',
+  key: 'sessionid',
   // store: new RedisStore({
+  //   client: redisClient,
   //   host: redisURL.hostname,
   //   port: redisURL.port,
   //   pass: redisPass,

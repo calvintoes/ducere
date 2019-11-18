@@ -29,10 +29,13 @@
 }
 
 .MuiButtonBase-root{
-  margin: 25px auto 0 !important;
   padding: 12px !important;
   width: 200px;
   
+}
+
+#submitBtn{
+  margin: 25px auto 0 !important;
 }
 
 .newAccount-wrapper{
@@ -49,4 +52,5 @@
   text-decoration: underline;
   color: white;
   transition: ease-in-out 0.2s;
+  cursor: pointer;
 }

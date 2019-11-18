@@ -3,45 +3,46 @@ import './App.css';
 import LoginContainer from './containers/LogInContainer'
 import { connect } from 'react-redux'
 import fetchToken from './Actions/Actions.js'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { PrivateRoute } from './helpers/PrivateRoute'
 import { bindActionCreators } from 'redux'
+import DashboardContainer from './containers/DashboardContainer';
 
 class App extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { 
-        _csrf: ''
-       }
-       this.props.fetchToken = fetchToken()
-    }
 
   componentDidMount(){
-    this.setState({_csrf: this.props.fetchToken()})
-    console.log(this.state)
+   this.props.fetchToken()
+   .then( res => localStorage.setItem('token', res.payload.csrfToken))
+    
   }
   
   render(){
-
-  
+    console.log(this.props)  
     return (
-      <div className="App">
-      <LoginContainer {...this.props} />
-      </div>
+      <Router>
+        <Switch>
+          
+          <Route exact path="/" component={LoginContainer}  />
+          <Route path="/dashboard" component={DashboardContainer} />
+          {/* <PrivateRoute path="/profile" component={ProfileContainer} /> */}
+          
+        </Switch>
+      </Router>
     );
   }
 }
 
 function mapStateToProps(state){
-  console.log(state)
-  const { store } = state
   return {
-      fetchToken: store.fetchToken
+      ...state
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchToken
-  }, dispatch)}
+  return (
+    bindActionCreators(fetchToken, dispatch)
+  )
+}
 
 
 
