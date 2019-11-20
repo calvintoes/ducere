@@ -48,8 +48,8 @@ class SignUpForm extends Component {
     return ( 
       <div className="Login">
         <Container >
-          <img src="/assets/user.svg" alt="logo" width="100px" />
-          <h1>Welcome To Ducere</h1>
+          <img src="/assets/user.svg" alt="logo" width="100px" id="avatar-logo" />
+          <h1 style={{textAlign: 'center'}}>Welcome To Ducere</h1>
           <h3 style={{color: "red"}}>{this.state.serverResponse}</h3>
         </Container>
       <form onSubmit={this.handleSubmit} >

@@ -1,0 +1,12 @@
+.menu-title {
+  margin: 0 auto ;
+}
+
+#menu-logout{
+  margin: auto 0;
+}
+
+#profile-link{
+  text-decoration: none;
+  color: inherit;
+}

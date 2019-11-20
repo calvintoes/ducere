@@ -8,20 +8,20 @@ const dashPage = (req, res) => {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
-    let username = req.session.user.username
 
-    return res.json({ user: username , messages: docs })
+    return res.json({ cards: docs })
   });
 }
 
 const makeCards = (req, res) => {
+  console.log("MAKE CARDDS", req.body)
   if (!req.body.message) {
     return res.status(400).json({ error: ' ALL fields are required' });
   }
 
   const cardData = {
     message: req.body.message,
-    owner: req.session.account._id,
+    owner: req.session.user._id,
   };
 
   const newCard = new Message.MessageModel(cardData)
@@ -29,7 +29,7 @@ const makeCards = (req, res) => {
 
   cardPromise
   .then(() => {
-    res.json({ message: 'Card Created' });
+    res.json({ message: req.body.message });
   });
 
   cardPromise.catch((err) => {

@@ -37,8 +37,7 @@ class LogInForm extends Component {
 
     this.props.loginUser(data)
     .then(res => {
-      console.log("RES", res)
-      res.payload.error || res.payload.message ? this.setState({serverResponse: this.props.user.message }) : this.setState({serverResponse: this.props.user.error || this.props.error})
+      res.payload.error ? this.setState({serverResponse: this.props.login.error || this.props.error}) : this.setState({serverResponse: "LOGIN_SUCCESS" })
     })
 
   }
@@ -46,17 +45,15 @@ class LogInForm extends Component {
   render() { 
     let btnText = this.props.logIn ? "Create Account" : "Log in";
     let user = { ...this.state.user }
-    console.log(this.props)
-    console.log("state", this.state)
-    if (this.state.serverResponse === 'success') {
-      console.log("REDIRECT")
+ 
+    if (this.state.serverResponse === "LOGIN_SUCCESS") {
       return <Redirect to='/dashboard' />
     }
     return ( 
       <div className="Login">
         <Container >
-          <img src="/assets/user.svg" alt="logo" width="100px" />
-          <h1>Welcome Back</h1>
+          <img src="/assets/user.svg" alt="logo" width="100px" id="avatar-logo"/>
+          <h1 style={{textAlign: 'center'}}>Welcome Back</h1>
           <h3 style={{color: "red"}}>{this.state.serverResponse}</h3>
         </Container>
         

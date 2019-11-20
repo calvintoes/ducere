@@ -7,19 +7,43 @@ import {
   LOGIN_SUCCESS,
   FETCH_TOKEN_STARTED,
   FETCH_TOKEN_FAILURE,
-  FETCH_TOKEN_SUCCESS
+  FETCH_TOKEN_SUCCESS,
+  MESSAGE_CARDS_FAILURE,
+  MESSAGE_CARDS_STARTED,
+  MESSAGE_CARDS_SUCCESS,
+  CREATE_POST_CARDS_FAILURE,
+  CREATE_POST_CARDS_STARTED,
+  CREATE_POST_CARDS_SUCCESS,
+  FETCH_USER_DATA_FAILURE,
+  FETCH_USER_DATA_STARTED,
+  FETCH_USER_DATA_SUCCESS,
+  CHANGE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_STARTED,
+  CHANGE_PASSWORD_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGOUT_STARTED,
+  LOGOUT_SUCCESS
 } from '../Actions/Actions'
 
 const initialState = {
   loading: false,
-  user: null,
+  login: null,
+  currentUser: null,
   error: null,
   token:'',
   type: null,
-  messageCards: []
+  messageCards: [],
 };
 
-export default function SignUpReducer( state = initialState, action ){
+const rootReducer = (state, action) => {
+  if(action.type === LOGOUT_SUCCESS){
+    state = undefined;
+  }
+
+  return SignUpReducer(state, action)
+}
+
+const SignUpReducer = ( state = initialState, action ) => {
   switch (action.type) {
     case ADD_NEW_USER_STARTED:
       return {
@@ -64,28 +88,128 @@ export default function SignUpReducer( state = initialState, action ){
         token: action.payload.csrfToken
       }
     case LOGIN_STARTED:
-        return{
-          ...state,
-          type: action.type,
-          loading:true,
-        }
-      case LOGIN_FAILURE:
-        return{
+      return{
+        ...state,
+        type: action.type,
+        loading:true,
+      }
+    case LOGIN_FAILURE:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      };
+    case LOGIN_SUCCESS:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+        login: action.payload
+      }
+    case MESSAGE_CARDS_STARTED:
+      return{
+        ...state,
+        type: action.type,
+        loading:true,
+      }
+    case MESSAGE_CARDS_FAILURE:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      };
+    case MESSAGE_CARDS_SUCCESS:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+        messageCards: action.payload
+      }
+    case CREATE_POST_CARDS_STARTED:
+      return{
+        ...state,
+        type: action.type,
+        loading:true,
+      }
+    case CREATE_POST_CARDS_FAILURE:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      };
+    case CREATE_POST_CARDS_SUCCESS:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+        messageCards: [...state.messageCards, action.payload]
+      }
+    case FETCH_USER_DATA_FAILURE:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      }
+    case FETCH_USER_DATA_STARTED:
+      return {
+        ...state,
+        type: action.type,
+        loading: true,
+      }
+    case FETCH_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+        currentUser: action.payload
+      }
+    case CHANGE_PASSWORD_FAILURE:
+        return {
           ...state,
           type: action.type,
           loading: false,
           error: action.payload.error,
-        };
-      case LOGIN_SUCCESS:
-        return{
-          ...state,
-          type: action.type,
-          loading: false,
-          error: null,
-          user: action.payload
         }
+    case CHANGE_PASSWORD_STARTED:
+      return {
+        ...state,
+        type: action.type,
+        loading: true,
+      }
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+      } 
+    case LOGOUT_STARTED:
+      return{
+        ...state,
+        type: action.type,
+        loading:true,
+      }
+    case LOGOUT_FAILURE:
+      return{
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      };
+    case LOGOUT_SUCCESS:
+      return state
+      
     default:
       return state;
   }
 }
 
+export default rootReducer

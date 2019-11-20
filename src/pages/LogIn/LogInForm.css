@@ -7,3 +7,9 @@
 .MuiOutlinedInput-root{
   margin: 10px 0;
 }
+
+#avatar-logo{
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -18,8 +18,9 @@ const loginPage = (req, res) => {
 };
 
 const logout = (req, res) => {
+  console.log("logout")
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/')
 };
 
 const login = (request, response) => {
@@ -40,7 +41,7 @@ const login = (request, response) => {
 
     req.session.user = User.UserModel.toAPI(user);
 
-    return res.json({ message: 'success' });
+    return res.json({ username, id: req.session.user });
   });
 };
 
@@ -84,10 +85,81 @@ const signup = (request, response) => {
   });
 };
 
+const fetchUserData = (req, res) => {
+  const username = req.session.user.username;
+
+  return User.UserModel.findByUsername(username, (err, docs) => {
+    if (err) {
+      return res.status(400).json({ error: 'User Data could not be found' })
+    }
+
+    return res.json({ docs })
+  });
+}
+
+const changePassword = (req, res) => {
+  console.log(req.body)
+  if (!req.body.currentPassword || !req.body.newPass || !req.body.newPass2) {
+    return res.status(400).json({
+      error: 'All fields are required',
+    });
+  }
+
+  if (req.body.newPass !== req.body.newPass2) {
+    return res.status(400).json({
+      error: 'Passwords do not match',
+    });
+  }
+
+  return User.UserModel.authenticate(req.session.user.username, req.body.currentPassword,(err, pass) => {
+      if (err || !pass) {
+        return res.status(401).json({
+          error: 'Current Password is incorrect.',
+        });
+      }
+
+      return User.UserModel.generateHash(req.body.newPass, (salt, hash) => {
+        const findUser = {
+          username: `${req.session.user.username}`,
+        };
+
+        const updateData = {
+          password: hash,
+          salt,
+        }
+
+        User.UserModel.update(findUser, updateData, (error) => {
+          if (error) {
+            return res.status(500).json({
+              error: 'Cannot update password at the moment.',
+            });
+          }
+
+          return res.status(200).json({
+            message: 'Changed Successfully'
+          });
+        });
+      });
+    }
+  );
+};
+
+const notFound = (req, res) => {
+  console.log('404')
+  res.render('404', {
+    layout: 'main',
+    headline: 'Oops!'
+
+  });
+}
+
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
   getToken,
+  fetchUserData,
+  changePassword,
+  notFound
 };

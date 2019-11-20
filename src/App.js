@@ -7,6 +7,8 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { PrivateRoute } from './helpers/PrivateRoute'
 import { bindActionCreators } from 'redux'
 import DashboardContainer from './containers/DashboardContainer';
+import ProfileContainer from './containers/ProfileContainer'
+import notFound from './pages/notFound'
 
 class App extends Component {
 
@@ -17,15 +19,14 @@ class App extends Component {
   }
   
   render(){
-    console.log(this.props)  
     return (
       <Router>
         <Switch>
           
           <Route exact path="/" component={LoginContainer}  />
-          <Route path="/dashboard" component={DashboardContainer} />
-          {/* <PrivateRoute path="/profile" component={ProfileContainer} /> */}
-          
+          <PrivateRoute path="/dashboard" component={DashboardContainer} />
+          <PrivateRoute path="/profile" component={ProfileContainer} />
+          <Route path="/*" component={notFound} />
         </Switch>
       </Router>
     );
@@ -41,6 +42,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return (
     bindActionCreators(fetchToken, dispatch)
+    // bindActionCreators(logout, dispatch)
   )
 }
 

@@ -24,6 +24,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: false,
+  },
+  lastName: {
+    type: String,
+    required: false,
+  },
+  gender: {
+    type: String,
+    required: false,
+  },
+  birthday: {
+    type: Date,
+    required: false,
+  },
   createdDate: {
     type: Date,
     default: Date.now,
@@ -81,6 +97,8 @@ UserModel.findByUsername(username, (err, doc) => {
     return callback();
   });
 });
+
+
 
 UserModel = mongoose.model('User', UserSchema);
 
