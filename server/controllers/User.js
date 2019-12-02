@@ -145,7 +145,7 @@ const changePassword = (req, res) => {
 };
 
 const notFound = (req, res) => {
-  console.log('404')
+  // console.log('404')
   res.render('notFound', (err, view) => {
     err ? res.send(err) : res.send(view)
   })
