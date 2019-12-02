@@ -10,6 +10,7 @@ const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
 const redis = require('redis')
+const expressHandlebars = require('express-handlebars')
 
 
 const port = process.env.PORT || process.env.NODE_PORT || 5000;
@@ -45,6 +46,9 @@ app.use(favicon(`${__dirname}/../public/favicon.ico`));
 app.use(express.json({
   type: ['application/json', 'text/plain']
 }))
+app.engine('handlebars', expressHandlebars());
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/../pages`);
 app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({

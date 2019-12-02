@@ -8,24 +8,24 @@ import { PrivateRoute } from './helpers/PrivateRoute'
 import { bindActionCreators } from 'redux'
 import DashboardContainer from './containers/DashboardContainer';
 import ProfileContainer from './containers/ProfileContainer'
+import AboutContainer from './containers/AboutContainer';
 import notFound from './pages/notFound'
 
 class App extends Component {
 
   componentDidMount(){
    this.props.fetchToken()
-   .then( res => localStorage.setItem('token', res.payload.csrfToken))
-    
+   
   }
   
   render(){
     return (
       <Router>
-        <Switch>
-          
+        <Switch> 
           <Route exact path="/" component={LoginContainer}  />
           <PrivateRoute path="/dashboard" component={DashboardContainer} />
           <PrivateRoute path="/profile" component={ProfileContainer} />
+          <PrivateRoute path="/about" component={AboutContainer} />
           <Route path="/*" component={notFound} />
         </Switch>
       </Router>
@@ -42,7 +42,6 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return (
     bindActionCreators(fetchToken, dispatch)
-    // bindActionCreators(logout, dispatch)
   )
 }
 

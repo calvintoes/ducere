@@ -31,7 +31,7 @@
     "serve-favicon": "^2.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./server/app.js",
     "build": "react-scripts build",
     "test": "echo \"Tests complete\"",
     "eject": "react-scripts eject",

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import auth from '../helpers/auth'
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} 
+export const PrivateRoute = ({ component: Component, ...rest }) => {
+  return(
+  <Route 
+    {...rest} 
     render={props => 
-      localStorage.getItem('token') ? (
+      auth.isAuthenticated() ? (
         <Component {...props} />
         ) : ( 
           <Redirect to={{
@@ -15,4 +18,5 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
         )
       }
     />
-);
+  )
+};

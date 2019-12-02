@@ -146,11 +146,10 @@ const changePassword = (req, res) => {
 
 const notFound = (req, res) => {
   console.log('404')
-  res.render('404', {
-    layout: 'main',
-    headline: 'Oops!'
-
-  });
+  res.render('notFound', (err, view) => {
+    err ? res.send(err) : res.send(view)
+  })
+  res.end()
 }
 
 module.exports = {

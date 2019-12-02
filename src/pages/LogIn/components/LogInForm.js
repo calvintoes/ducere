@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
 import '../LogInForm.css'
+import auth from '../../../helpers/auth'
 
 class LogInForm extends Component {
   constructor(props) {
@@ -37,7 +38,9 @@ class LogInForm extends Component {
 
     this.props.loginUser(data)
     .then(res => {
-      res.payload.error ? this.setState({serverResponse: this.props.login.error || this.props.error}) : this.setState({serverResponse: "LOGIN_SUCCESS" })
+      res.payload.error ? this.setState({serverResponse: this.props.login.error || this.props.error}) : auth.login( () => {
+        this.props.history.push('/dashboard')
+      });
     })
 
   }

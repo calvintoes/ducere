@@ -22,7 +22,10 @@ import {
   CHANGE_PASSWORD_SUCCESS,
   LOGOUT_FAILURE,
   LOGOUT_STARTED,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  SET_FULL_NAME_FAILURE,
+  SET_FULL_NAME_STARTED,
+  SET_FULL_NAME_SUCCESS
 } from '../Actions/Actions'
 
 const initialState = {
@@ -205,8 +208,29 @@ const SignUpReducer = ( state = initialState, action ) => {
         error: action.payload.error,
       };
     case LOGOUT_SUCCESS:
-      return state
-      
+      return {
+        ...state
+      }
+    case SET_FULL_NAME_FAILURE:
+        return {
+          ...state,
+          type: action.type,
+          loading: false,
+          error: action.payload.error,
+        }
+    case SET_FULL_NAME_STARTED:
+      return {
+        ...state,
+        type: action.type,
+        loading: true,
+      }
+    case SET_FULL_NAME_SUCCESS:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+      } 
     default:
       return state;
   }

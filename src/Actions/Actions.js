@@ -26,6 +26,9 @@ export const FETCH_USER_DATA_FAILURE = 'FETCH_USER_DATA_FAILURE'
 export const CHANGE_PASSWORD_STARTED = 'CHANGE_PASSWORD_STARTED'
 export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS'
 export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE'
+export const SET_FULL_NAME_STARTED = 'SET_FULL_NAME_STARTED'
+export const SET_FULL_NAME_SUCCESS = 'SET_FULL_NAME_SUCCESS'
+export const SET_FULL_NAME_FAILURE = 'SET_FULL_NAME_FAILURE'
 
 // Dispatches
 const fetchTokenStarted = () => {
@@ -173,6 +176,25 @@ const changePasswordFailure = (error) => {
   }
 }
 
+const setFullNameStarted = () => {
+  return {
+    type: SET_FULL_NAME_STARTED
+  }
+}
+
+const setFullNameSuccess = (data) => {
+  return {
+    type: SET_FULL_NAME_SUCCESS,
+    payload: data
+  }
+}
+
+const setFullNameFailure = (error) => {
+  return {
+    type: SET_FULL_NAME_FAILURE,
+    payload: { error }
+  }
+}
 
 const logoutStarted = () => {
   return {
@@ -194,7 +216,8 @@ const logoutFailure = (error) => {
   }
 }
 
-// Action Creators
+
+//  === Action Creators ===
 const fetchToken = () => {
   return dispatch => {
     dispatch(fetchTokenStarted());
@@ -323,6 +346,24 @@ const logout = () => {
   }
 }
 
+const setFullName = (data) => {
+  return (dispatch) => {
+    dispatch(setFullNameStarted());
+    return fetch('/setName',{
+      method: 'POST',
+      headers: {
+        'X-CSRF-TOKEN': data.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(json => dispatch(setFullNameSuccess(json)))
+    .catch(err => {
+      dispatch(setFullNameFailure(err.message));
+    })
+  }
+}
 
 
 export default { 
@@ -333,7 +374,8 @@ export default {
   createPostCards,
   fetchUserData,
   setNewPassword,
-  logout
+  logout,
+  setFullName
 };
 
 

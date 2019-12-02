@@ -20,6 +20,37 @@ class ProfileContent extends Component {
         birthday: Date,
         gender: '',
       },
+      fields: [
+        {
+          id: 'firstName',
+          className: 'firstName',
+          variant: 'contained',
+          placeholder:'First Name',
+          type: 'text'
+        },
+        {
+          id: 'lastName',
+          className: 'lastName',
+          variant: 'contained',
+          placeholder:'Last Name',
+          type: 'text'
+        },
+        {
+          id: 'gender',
+          className: 'gender',
+          variant: 'contained',
+          placeholder:'Gender',
+          type: 'checkbox'
+        },
+        {
+          id: 'birthday',
+          className: 'birthday',
+          variant: 'contained',
+          placeholder:'Birthday',
+          type: 'date'
+        },
+
+      ],
       showPwdFields: false,
       currentPassword:'',
       newPassword:'',
@@ -51,7 +82,7 @@ class ProfileContent extends Component {
     let monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"]
     let d = new Date(date);
     let month, day, year;
-    month = monthNames[d.getUTCMonth() + 1];
+    month = monthNames[d.getUTCMonth()];
     day = d.getDate();
     year = d.getUTCFullYear();
 
