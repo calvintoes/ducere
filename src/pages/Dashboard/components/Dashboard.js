@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Container,
   Grid,
@@ -11,42 +11,37 @@ import MessageSender from './MessageSender'
 
 import '../Dashboard.css'
 
-const Dashboard = (props) => {
-  let showPost;
+class Dashboard extends Component{
+  constructor(props) {
+    super(props);
+    this.state = { 
+      messageCards: this.props.messageCards.cards
+     }
+  }
+   
+  render() {
+    let showPost = this.props.messageCards.cards ? (<MessageCards {...this.props} />) : (<h2 className="no-post-text">No Posts Available</h2>)
 
-  // if (props.messageCards.cards) {
-  //   if (props.messageCards.cards.length === 0) {
-  //     showPost = ( <h2 className="no-post-text">No Posts Available</h2> )
-  //   } else {
-  //     let cards = props.messageCards.cards;
-  //     showPost = cards.map((card) => (<MessageCards text={card.message} key={card._id} />))
-  //   }
-  // } else {
-  //   showPost = ( <h2 className="no-post-text">No Posts Available</h2> )
-      
-  // }
-
-  showPost = props.messageCards.cards ? (<MessageCards {...props} />) : (<h2 className="no-post-text">No Posts Available</h2>)
-
-  return ( 
-    <div>
-      <NavBar {...props}/>
-      
-        <Grid container>
-          <Grid item xs={3}>
-            <MessageSender {...props}/>
+    return ( 
+      <div>
+        <NavBar {...this.props}/>
+        
+          <Grid container>
+            <Grid item xs={10}>
+              <MessageSender {...this.props}/>
+            </Grid>
+            <Grid item xs={2} style={{overflowY: 'scroll'}}>
+              <div className="dashboard-wrapper">
+                {showPost}
+              </div>
+            </Grid>
           </Grid>
-          <Grid item xs={9}>
-            <div className="dashboard-wrapper">
-              {showPost}
-            </div>
-          </Grid>
-        </Grid>
-       
-      
-      
-    </div>
-   );
+        
+        
+        
+      </div>
+    );
+  }
 }
  
 export default Dashboard;

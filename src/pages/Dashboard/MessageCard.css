@@ -1,6 +1,7 @@
 .message-wrapper{
   margin: 35px 0;
-  padding: 20px 50px;
+  padding: 10px 5px;
+  border-left: 1px solid black;
 }
 
 .message{

@@ -1,5 +1,8 @@
 .dashboard-wrapper{
-  padding: 5em 5em 35em 5em;
+  padding: 1em 0.5em 1em 5em;
+  background-color: rgb(240, 239, 239);
+  overflow-y: scroll;
+  height: 89vh;
 }
 
 .no-post-text{

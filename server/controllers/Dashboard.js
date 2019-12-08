@@ -44,12 +44,13 @@ const makeCards = (req, res) => {
 
 const loadAllCards = (req, res) => {
   console.log("Loading Cards ...");
-  Message.MessageModel.find((err, docs) => {
-    if (err) console.log(err)
+  return Message.MessageModel.find((err, docs) => {
+    if (err) {
+      console.log(err)
+      return res.status(400).json({ error: 'An error occurred' });
+    }
     return res.json({ cards: docs })
-  })
-  
-
+  });
 }
 
 
