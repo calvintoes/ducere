@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import loadMessageCards from '../Actions/Actions'
+import loadAllCards from '../Actions/Actions'
 import createPostCards from '../Actions/Actions'
 import Dashboard from '../pages/Dashboard/components/Dashboard'
 import { bindActionCreators } from 'redux'
@@ -12,7 +12,7 @@ class DashboardContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadMessageCards();
+    this.props.loadAllCards(this.props.token);
   }
 
 
@@ -30,7 +30,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
     return (
-      bindActionCreators(loadMessageCards, dispatch),
+      bindActionCreators(loadAllCards, dispatch),
       bindActionCreators(createPostCards, dispatch)
     )
 }

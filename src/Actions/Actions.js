@@ -29,6 +29,9 @@ export const CHANGE_PASSWORD_FAILURE = 'CHANGE_PASSWORD_FAILURE'
 export const SET_FULL_NAME_STARTED = 'SET_FULL_NAME_STARTED'
 export const SET_FULL_NAME_SUCCESS = 'SET_FULL_NAME_SUCCESS'
 export const SET_FULL_NAME_FAILURE = 'SET_FULL_NAME_FAILURE'
+export const LOAD_ALL_CARDS_STARTED = 'LOAD_ALL_CARDS_STARTED'
+export const LOAD_ALL_CARDS_SUCCESS = 'LOAD_ALL_CARDS_SUCCESS'
+export const LOAD_ALL_CARDS_FAILURE = 'LOAD_ALL_CARDS_FAILURE'
 
 // Dispatches
 const fetchTokenStarted = () => {
@@ -216,6 +219,27 @@ const logoutFailure = (error) => {
   }
 }
 
+const loadAllCardsStarted = () => {
+  return {
+    type: LOAD_ALL_CARDS_STARTED
+  }
+}
+
+const loadAllCardsSuccess = (data) => {
+  return {
+    type: LOAD_ALL_CARDS_SUCCESS,
+    payload: data
+  }
+}
+
+const loadAllCardsFailure = (error) => {
+  return {
+    type: LOAD_ALL_CARDS_FAILURE,
+    payload: { error }
+  }
+}
+
+
 
 //  === Action Creators ===
 const fetchToken = () => {
@@ -365,6 +389,22 @@ const setFullName = (data) => {
   }
 }
 
+const loadAllCards = (token) => {
+  return dispatch => {
+    dispatch(loadAllCardsStarted());
+    return fetch('/loadCards',{
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    })
+    .then(res => res.json())
+    .then(json => dispatch(loadAllCardsSuccess(json)))
+    .catch(err => {
+      dispatch(loadAllCardsFailure(err.message));
+    })
+  }
+}
+
 
 export default { 
   postAddNewUser,
@@ -375,7 +415,8 @@ export default {
   fetchUserData,
   setNewPassword,
   logout,
-  setFullName
+  setFullName,
+  loadAllCards
 };
 
 

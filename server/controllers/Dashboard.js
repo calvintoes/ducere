@@ -42,9 +42,20 @@ const makeCards = (req, res) => {
   return cardPromise;
 };
 
+const loadAllCards = (req, res) => {
+  console.log("Loading Cards ...");
+  Message.MessageModel.find((err, docs) => {
+    if (err) console.log(err)
+    return res.json({ cards: docs })
+  })
+  
+
+}
+
 
 
 module.exports = {
   dashPage,
-  makeCards
+  makeCards,
+  loadAllCards
 }

@@ -21,6 +21,7 @@ class MessageSender extends Component {
 
     let data = { message: this.state.message, token: this.props.token};
     this.props.createPostCards(data);
+    this.props.loadAllCards(this.props.token);
   }
 
   

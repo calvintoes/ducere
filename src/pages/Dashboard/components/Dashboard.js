@@ -26,7 +26,7 @@ const Dashboard = (props) => {
       
   // }
 
-  showPost = props.messageCards.cards ? (<MessageCards/>) : (<h2 className="no-post-text">No Posts Available</h2>)
+  showPost = props.messageCards.cards ? (<MessageCards {...props} />) : (<h2 className="no-post-text">No Posts Available</h2>)
 
   return ( 
     <div>

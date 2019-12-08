@@ -25,7 +25,10 @@ import {
   LOGOUT_SUCCESS,
   SET_FULL_NAME_FAILURE,
   SET_FULL_NAME_STARTED,
-  SET_FULL_NAME_SUCCESS
+  SET_FULL_NAME_SUCCESS,
+  LOAD_ALL_CARDS_FAILURE,
+  LOAD_ALL_CARDS_STARTED,
+  LOAD_ALL_CARDS_SUCCESS
 } from '../Actions/Actions'
 
 const initialState = {
@@ -230,6 +233,27 @@ const SignUpReducer = ( state = initialState, action ) => {
         type: action.type,
         loading: false,
         error: null,
+      } 
+    case LOAD_ALL_CARDS_FAILURE:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: action.payload.error,
+      }
+    case LOAD_ALL_CARDS_STARTED:
+      return {
+        ...state,
+        type: action.type,
+        loading: true,
+      }
+    case LOAD_ALL_CARDS_SUCCESS:
+      return {
+        ...state,
+        type: action.type,
+        loading: false,
+        error: null,
+        messageCards: action.payload
       } 
     default:
       return state;

@@ -4,8 +4,7 @@ import {
 } from '@material-ui/core'
 import { connect } from 'react-redux'
 import '../MessageCard.css'
-import { bindActionCreators } from 'redux'
-import loadMessageCards from '../../../Actions/Actions'
+
 
 class MessageCards extends Component {
   constructor(props){
@@ -16,13 +15,15 @@ class MessageCards extends Component {
   }
 
   componentDidUpdate() {
-    this.props.loadMessageCards()
-    .then(res => 
-      res ? this.setState({messageCards: res.payload}) : null
-    );
+    
   }
 
   render() {
+    this.props.loadAllCards(this.props.token)
+    .then(res => 
+      res ? this.setState({messageCards: res.payload}) : null
+    );
+    
     let showCards = this.state.messageCards.cards.map( (card) => (
         <Paper key={card._id}>
           <div className="message-wrapper">
@@ -34,7 +35,7 @@ class MessageCards extends Component {
       )
      
     )
-    
+    showCards = showCards.reverse();
     return (
       <div>{showCards}</div>
         
@@ -47,10 +48,5 @@ function mapStateToProps(state){
   return { ...state }
 }
 
-function mapDispatchToProps(dispatch) {
-  return (
-    bindActionCreators(loadMessageCards, dispatch)
-  )
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(MessageCards);
+export default connect(mapStateToProps,null)(MessageCards);

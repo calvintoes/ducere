@@ -14,8 +14,10 @@
     "connect-redis": "^4.0.3",
     "cookie-parser": "^1.4.4",
     "csurf": "^1.10.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "express-request-proxy": "^2.2.2",
     "express-session": "^1.17.0",
     "mongoose": "^5.7.11",
     "node-sass": "^4.13.0",
@@ -28,7 +30,8 @@
     "redis": "^2.8.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "unirest": "^0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
