@@ -12,7 +12,7 @@ class DashboardContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadAllCards(this.props.token);
+    this.props.loadAllCards(this.props.user.token);
   }
 
 

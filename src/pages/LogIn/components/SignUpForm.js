@@ -33,14 +33,15 @@ class SignUpForm extends Component {
       ...this.state.user, 
     }
   
-    this.props.postAddNewUser(data, this.props.token)
+    this.props.postAddNewUser(data, this.props.user.token)
     .then(res => {
     
-      res.error || res.message ? this.setState({serverResponse: this.props.user.message }) : this.setState({serverResponse: this.props.user.error || this.props.error})
+      res.error || res.message ? this.setState({serverResponse: this.props.user.message }) : this.setState({serverResponse: this.props.user.error})
     })
   }
 
   render() { 
+    console.log(this.props)
     let btnText = this.props.logIn ?  "Create Account" : "Log in";
     let user = { ...this.state.user };
     let validateForm = this.validateForm();
@@ -52,50 +53,50 @@ class SignUpForm extends Component {
           <h1 style={{textAlign: 'center'}}>Welcome To Ducere</h1>
           <h3 style={{color: "red"}}>{this.state.serverResponse}</h3>
         </Container>
-      <form onSubmit={this.handleSubmit} >
-        <Container>
-          <FormGroup>
-            <TextField
-              required
-              id="username"
-              className="username"
-              label="Username"
-              value={this.state.user.username}
-              type="text"
-              variant="outlined"
-              onChange={(e) => this.setState({ user: {...user, username: e.target.value } })}
-            />
-            <TextField
-              required
-              id="password"
-              className="password"
-              label="Password"
-              value={this.state.user.password}
-              type="password"
-              variant="outlined"
-              onChange={(e) => this.setState({user: {...user, password: e.target.value } })}
-            />
-            <TextField
-              required
-              id="password2"
-              className="password2"
-              label="Retype Password"
-              value={this.state.user.password2}
-              type="password"
-              variant="outlined"
-              onChange={(e) => this.setState({user: {...user, password2: e.target.value }})}
-            />
-            <Button
-              id="submitBtn"
-              disabled={!validateForm}
-              type="submit"
-              variant="contained"
-            >
-            {btnText}
-            </Button>  
-          </FormGroup>
-        </Container>
-      </form>
+        <form onSubmit={this.handleSubmit} >
+          <Container>
+            <FormGroup>
+              <TextField
+                required
+                id="username"
+                className="username"
+                label="Username"
+                value={this.state.user.username}
+                type="text"
+                variant="outlined"
+                onChange={(e) => this.setState({ user: {...user, username: e.target.value } })}
+              />
+              <TextField
+                required
+                id="password"
+                className="password"
+                label="Password"
+                value={this.state.user.password}
+                type="password"
+                variant="outlined"
+                onChange={(e) => this.setState({user: {...user, password: e.target.value } })}
+              />
+              <TextField
+                required
+                id="password2"
+                className="password2"
+                label="Retype Password"
+                value={this.state.user.password2}
+                type="password"
+                variant="outlined"
+                onChange={(e) => this.setState({user: {...user, password2: e.target.value }})}
+              />
+              <Button
+                id="submitBtn"
+                disabled={!validateForm}
+                type="submit"
+                variant="contained"
+              >
+              {btnText}
+              </Button>  
+            </FormGroup>
+          </Container>
+        </form>
       </div>
      );
   }

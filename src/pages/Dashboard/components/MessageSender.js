@@ -4,7 +4,7 @@ import {
   TextField,
   Button
 } from '@material-ui/core'
-import '../MessageSender.scss'
+
 
 
 class MessageSender extends Component {
@@ -18,23 +18,23 @@ class MessageSender extends Component {
 
   handleSend = (e) => {
     e.preventDefault()
-    let msgCards = this.props.messageCards
+    let msgCards = this.props.user.messageCards
 
     let data = { 
       message: this.state.message, 
-      token: this.props.token
+      token: this.props.user.token
     };
     
     this.props.createPostCards(data);
 
-    if (msgCards.cards.length !== 0) this.props.loadAllCards(this.props.token).then( 
+    if (msgCards.cards.length !== 0) this.props.loadAllCards(this.props.user.token).then( 
       this.setState({message: ''})
     );
   }
   
   render() { 
     return (
-      <Container>
+      
         <div className="send-container">
           <TextField
             id="sendMessage"
@@ -55,7 +55,7 @@ class MessageSender extends Component {
             Send
           </Button>
         </div>
-      </Container>
+      
       );
   }
 }

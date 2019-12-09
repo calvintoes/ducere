@@ -7,18 +7,18 @@ import '../MessageCard.css'
 
 
 const MessageCards = (props) =>{
-  let showCards = props.messageCards.cards.map( (card) => (
+  console.log(props);
+  let showCards = props.user.messageCards.cards.map( (card) => (
       <Paper key={card._id}>
         <div className="message-wrapper">
-          <div className="message" >
-            <p style={{fontSize: '14px'}}>{ card.message }</p>
-          </div>
+            <p className="message">
+              { card.message }
+            </p>
         </div>
       </Paper>
     )
     
-  )
-  showCards = showCards.reverse();
+  );
 
   return (
     <div>

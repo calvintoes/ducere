@@ -1,0 +1,15 @@
+.story-form-wrapper{
+  margin-top: 10em;
+}
+
+#body-field{
+ margin-bottom: 10em;
+}
+
+.story-body-wrapper, .story-btn-wrapper{
+  margin-top: 3em;
+}
+
+.story-btn-wrapper{
+  float: right;
+}

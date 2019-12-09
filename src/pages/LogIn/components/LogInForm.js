@@ -33,12 +33,12 @@ class LogInForm extends Component {
     e.preventDefault();
     let data = {
       ...this.state.user,
-      token: this.props.token
+      token: this.props.user.token
     }
 
     this.props.loginUser(data)
     .then(res => {
-      res.payload.error ? this.setState({serverResponse: this.props.login.error || this.props.error}) : auth.login( () => {
+      res.payload.error ? this.setState({serverResponse: this.props.user.login.error || this.props.user.error}) : auth.login( () => {
         this.props.history.push('/dashboard')
       });
     })

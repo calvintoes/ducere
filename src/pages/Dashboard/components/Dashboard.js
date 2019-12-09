@@ -15,12 +15,15 @@ class Dashboard extends Component{
   constructor(props) {
     super(props);
     this.state = { 
-      messageCards: this.props.messageCards.cards
+      messageCards: this.props.user.messageCards.cards
      }
   }
    
   render() {
-    let showPost = this.props.messageCards.cards ? (<MessageCards {...this.props} />) : (<h2 className="no-post-text">No Posts Available</h2>)
+    console.log(this.props)
+    console.log(this.state)
+    let user = this.props.user
+    let showPost = user.messageCards.cards ? (<MessageCards {...this.props} />) : (<h2 className="no-post-text">No Posts Available</h2>)
 
     return ( 
       <div>
@@ -28,12 +31,17 @@ class Dashboard extends Component{
         
           <Grid container>
             <Grid item xs={10}>
-              <MessageSender {...this.props}/>
+              
             </Grid>
-            <Grid item xs={2} style={{overflowY: 'scroll'}}>
+            <Grid item xs={2}>
+              <Grid>
               <div className="dashboard-wrapper">
                 {showPost}
               </div>
+              </Grid>
+              <Grid>
+                <MessageSender {...this.props}/>
+              </Grid>
             </Grid>
           </Grid>
         

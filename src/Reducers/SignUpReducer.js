@@ -41,13 +41,13 @@ const initialState = {
   messageCards: [],
 };
 
-const rootReducer = (state, action) => {
-  if(action.type === LOGOUT_SUCCESS){
-    state = undefined;
-  }
+// const rootReducer = (state, action) => {
+//   if(action.type === LOGOUT_SUCCESS){
+//     state = undefined;
+//   }
 
-  return SignUpReducer(state, action)
-}
+//   return SignUpReducer(state, action)
+// }
 
 const SignUpReducer = ( state = initialState, action ) => {
   switch (action.type) {
@@ -260,4 +260,4 @@ const SignUpReducer = ( state = initialState, action ) => {
   }
 }
 
-export default rootReducer
+export default SignUpReducer

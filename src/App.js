@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux'
 import DashboardContainer from './containers/DashboardContainer';
 import ProfileContainer from './containers/ProfileContainer'
 import AboutContainer from './containers/AboutContainer';
+import StoryContainer from './containers/StoryContainer';
 import notFound from './pages/notFound'
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
       <Router>
         <Switch> 
           <Route exact path="/" component={LoginContainer}  />
+          <Route exact path="/stories" component={StoryContainer}  />
           <PrivateRoute path="/dashboard" component={DashboardContainer} />
           <PrivateRoute path="/profile" component={ProfileContainer} />
           <PrivateRoute path="/about" component={AboutContainer} />

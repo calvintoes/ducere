@@ -60,7 +60,7 @@ class ProfileContent extends Component {
   }
   
   componentDidMount(){
-    let token =  { token: this.props.token }
+    let token =  { token: this.props.user.token }
     this.props.fetchUserData(token)
     .then(res => 
         this.setState({
@@ -103,7 +103,7 @@ class ProfileContent extends Component {
       currentPassword: this.state.currentPassword,
       newPass: this.state.newPassword,
       newPass2: this.state.newPassword2,
-      token: this.props.token
+      token: this.props.user.token
     }
     this.props.setNewPassword(data)
     .then(res => res.payload.error ? this.setState({serverResponse: res.payload.error }) : this.setState({serverResponse: res.payload.message }))

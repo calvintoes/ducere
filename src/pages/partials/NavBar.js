@@ -20,7 +20,9 @@ const NavBar = (props) => {
   return ( 
     <AppBar position="static">
       <Toolbar>
+      
         <h3 className="menu-title">Ducere</h3>
+
         <Link to='/dashboard' id="profile-link">
         <Button 
           id="menu-profile"
