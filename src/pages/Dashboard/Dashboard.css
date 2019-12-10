@@ -9,7 +9,15 @@
   margin: auto  ;
 }
 
-#divider{
-  width: 1000px;
-  margin: auto;
+.story-header{
+  margin-top: 3em;
+  margin-left: 2.5em;
 }
+
+
+#start-story-wrapper{
+  text-decoration: none;
+  margin-left: 5em;
+  
+}
+

@@ -100,7 +100,7 @@ UserModel.findByUsername(username, (err, doc) => {
 
 
 
-UserModel = mongoose.model('User', UserSchema);
+UserModel = mongoose.model('Users', UserSchema);
 
 module.exports.UserModel = UserModel;
 module.exports.UserSchema = UserSchema;

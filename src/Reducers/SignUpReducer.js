@@ -41,13 +41,15 @@ const initialState = {
   messageCards: [],
 };
 
-// const rootReducer = (state, action) => {
-//   if(action.type === LOGOUT_SUCCESS){
-//     state = undefined;
-//   }
+const rootReducer = (state, action) => {
+  if(action.type === LOGOUT_SUCCESS){
+    return {
+      initialState
+    }
+  }
 
-//   return SignUpReducer(state, action)
-// }
+  return SignUpReducer(state, action)
+}
 
 const SignUpReducer = ( state = initialState, action ) => {
   switch (action.type) {
@@ -112,7 +114,7 @@ const SignUpReducer = ( state = initialState, action ) => {
         type: action.type,
         loading: false,
         error: null,
-        login: action.payload
+        currentUser: action.payload.username
       }
     case MESSAGE_CARDS_STARTED:
       return{
@@ -175,7 +177,7 @@ const SignUpReducer = ( state = initialState, action ) => {
         type: action.type,
         loading: false,
         error: null,
-        currentUser: action.payload
+        currentUser: action.payload.docs
       }
     case CHANGE_PASSWORD_FAILURE:
         return {
@@ -212,7 +214,7 @@ const SignUpReducer = ( state = initialState, action ) => {
       };
     case LOGOUT_SUCCESS:
       return {
-        ...state
+        ...initialState
       }
     case SET_FULL_NAME_FAILURE:
         return {
@@ -260,4 +262,4 @@ const SignUpReducer = ( state = initialState, action ) => {
   }
 }
 
-export default SignUpReducer
+export default rootReducer;

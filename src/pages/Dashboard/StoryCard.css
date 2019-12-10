@@ -1,0 +1,18 @@
+.story-cards{
+  display: flex;
+  margin: 0 3em;
+  width: 1000px;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+}
+
+.story-item{
+  margin: 2em;
+  padding: 1em ;
+  flex: 0 0 33.33333%;
+}
+
+.story-subtitle{
+  font-size: 10px;
+  color: gray;
+}

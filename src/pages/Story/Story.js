@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Container,
   Grid,
-  Paper,
   TextField,
   Button,
 } from '@material-ui/core';
@@ -24,19 +23,41 @@ class Story extends Component {
     this.props.history.goBack()
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let data = {
+      title: this.state.title,
+      body: this.state.body,
+    }
+
+    this.props.postStory(data, this.props.user.token)
+    .then(res => {
+      console.log(res)
+      this.setState({serverResponse: res.payload.message})
+    })
+    
+    if (this.state.serverResponse){
+      setTimeout(this.props.history.push('/dashboard'), 1500)
+    }
+    
+  }
+
   render() { 
+    console.log(this.props)
+    console.log(this.state)
     return ( 
       <div>
         <NavBar {...this.props} /> 
         
         <Container>
+          <h1 className="story-title">Write Your Story</h1>
           <div className="story-form-wrapper">
             <Grid>
               <TextField
                 id="title-field"
                 className="title-field"
                 variant="standard"
-                label="Title"
+                placeholder="Untitled"
                 required
                 onChange={(e) => this.setState({title: e.target.value})}
                 value={this.state.title}
@@ -49,6 +70,7 @@ class Story extends Component {
                     id="body-field"
                     className="body-field"
                     variant="outlined"
+                    placeholder=" Today was a great day ... "
                     onChange={(e) => this.setState({body: e.target.value})}
                     value={this.state.body}
                     multiline
@@ -73,6 +95,7 @@ class Story extends Component {
                   variant="contained"
                   color="primary"
                   size="small"
+                  onClick={this.handleSubmit}
                 >
                   Submit
                 </Button>

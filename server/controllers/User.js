@@ -24,6 +24,7 @@ const logout = (req, res) => {
 };
 
 const login = (request, response) => {
+  console.log("LOGINNNNN")
   const req = request;
   const res = response;
 

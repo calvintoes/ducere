@@ -12,6 +12,10 @@ const router = (app) => {
   app.post('/makeCards', middle.requiresLogin, controllers.Dashboard.makeCards);
   app.get('/fetchUserData', middle.requiresLogin, controllers.User.fetchUserData);
   app.post('/changePwd', middle.requiresLogin, controllers.User.changePassword);
+
+  app.post('/createStory', middle.requiresLogin, controllers.Story.createStory);
+  app.get('/loadStories', middle.requiresLogin, controllers.Story.loadStories);
+  app.delete('/deleteStory', middle.requiresLogin, controllers.Story.deleteStory)
   app.get('/*', controllers.User.notFound);
 }
 module.exports = router;

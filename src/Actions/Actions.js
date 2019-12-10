@@ -32,6 +32,15 @@ export const SET_FULL_NAME_FAILURE = 'SET_FULL_NAME_FAILURE'
 export const LOAD_ALL_CARDS_STARTED = 'LOAD_ALL_CARDS_STARTED'
 export const LOAD_ALL_CARDS_SUCCESS = 'LOAD_ALL_CARDS_SUCCESS'
 export const LOAD_ALL_CARDS_FAILURE = 'LOAD_ALL_CARDS_FAILURE'
+export const POST_STORY_STARTED = 'POST_STORY_STARTED';
+export const POST_STORY_SUCCESS = 'POST_STORY_SUCCESS';
+export const POST_STORY_FAILURE = 'POST_STORY_FAILURE';
+export const LOAD_STORY_STARTED = 'LOAD_STORY_STARTED';
+export const LOAD_STORY_SUCCESS = 'LOAD_STORY_SUCCESS';
+export const LOAD_STORY_FAILURE = 'LOAD_STORY_FAILURE';
+export const DELETE_STORY_STARTED = 'DELETE_STORY_STARTED';
+export const DELETE_STORY_SUCCESS = 'DELETE_STORY_SUCCESS';
+export const DELETE_STORY_FAILURE = 'DELETE_STORY_FAILURE';
 
 // Dispatches
 const fetchTokenStarted = () => {
@@ -85,10 +94,10 @@ const loginStarted = () => {
   }
 }
 
-const loginSuccess = (path) => {
+const loginSuccess = (user) => {
   return {
     type: LOGIN_SUCCESS,
-    payload: path
+    payload: user
   }
 }
 
@@ -239,6 +248,68 @@ const loadAllCardsFailure = (error) => {
   }
 }
 
+const postStoryStarted = () => {
+  return {
+    type: POST_STORY_STARTED,
+  }
+}
+
+const postStorySuccess = (story) => {
+  return {
+    type: POST_STORY_SUCCESS,
+    payload: story
+  }
+}
+
+const postStoryFailure = (error) => {
+  return {
+    type: POST_STORY_FAILURE,
+    payload: error
+    
+  }
+}
+
+const loadStoryStarted = () => {
+  return {
+    type: LOAD_STORY_STARTED,
+  }
+}
+
+const loadStorySuccess = (story) => {
+  return {
+    type: LOAD_STORY_SUCCESS,
+    payload: story
+  }
+}
+
+const loadStoryFailure = (error) => {
+  return {
+    type: LOAD_STORY_FAILURE,
+    payload: error
+    
+  }
+}
+
+const deleteStoryStarted = () => {
+  return {
+    type: DELETE_STORY_STARTED,
+  }
+}
+
+const deleteStorySuccess = (story) => {
+  return {
+    type: DELETE_STORY_SUCCESS,
+    payload: story
+  }
+}
+
+const deleteStoryFailure = (error) => {
+  return {
+    type: DELETE_STORY_FAILURE,
+    payload: error
+    
+  }
+}
 
 
 //  === Action Creators ===
@@ -405,6 +476,60 @@ const loadAllCards = (token) => {
   }
 }
 
+const postStory = (data, token) => {
+  return (dispatch) => {
+    dispatch(postStoryStarted());
+    return fetch('/createStory',{
+      method: "POST",
+      headers: {
+        'X-CSRF-TOKEN': token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(json => dispatch(postStorySuccess(json)))
+    .catch(err => {
+      dispatch(postStoryFailure(err.message));
+    })
+  }
+}
+
+
+const loadStory = (token) => {
+  return (dispatch) => {
+    dispatch(loadStoryStarted());
+    return fetch('/loadStories',{
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    })
+    .then(res => res.json())
+    .then(json => dispatch(loadStorySuccess(json)))
+    .catch(err => {
+      dispatch(loadStoryFailure(err.message));
+    })
+  }
+}
+
+const deleteStory = (token) => {
+  return (dispatch) => {
+    dispatch(deleteStoryStarted());
+    return fetch('/deleteStory',{
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': token,
+      },
+    })
+    .then(res => res.json())
+    .then(json => dispatch(deleteStorySuccess(json)))
+    .catch(err => {
+      dispatch(deleteStoryFailure(err.message));
+    })
+  }
+}
+
+
 
 export default { 
   postAddNewUser,
@@ -416,7 +541,10 @@ export default {
   setNewPassword,
   logout,
   setFullName,
-  loadAllCards
+  loadAllCards,
+  postStory,
+  loadStory,
+  deleteStory,
 };
 
 

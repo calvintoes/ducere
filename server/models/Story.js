@@ -37,7 +37,7 @@ StorySchema.statics.findByOwner = (ownerId, callback) => {
   return StoryModel.find(search).select('title body').exec(callback);
 }
 
-StorySchema.statics.removeByAttr = (attr, callback) => {
+StorySchema.statics.removeById = (attr, callback) => {
   return StoryModel.deleteOne(attr, (err) => {
     if (err) console.log(err);
     console.log('1 document(s) deleted');
