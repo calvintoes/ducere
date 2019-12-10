@@ -32,7 +32,6 @@ class Story extends Component {
 
     this.props.postStory(data, this.props.user.token)
     .then(res => {
-      console.log(res)
       this.setState({serverResponse: res.payload.message})
     })
     
@@ -43,8 +42,7 @@ class Story extends Component {
   }
 
   render() { 
-    console.log(this.props)
-    console.log(this.state)
+  
     return ( 
       <div>
         <NavBar {...this.props} /> 

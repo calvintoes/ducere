@@ -22,8 +22,6 @@ class Dashboard extends Component{
   }
    
   render() {
-    console.log(this.props)
-    console.log(this.state)
     let user = this.props.user;
     let { story } = this.props;
     let showPost = user.messageCards.cards ? (<MessageCards {...this.props} />) : (<h2 className="no-post-text">No Posts Available</h2>);
