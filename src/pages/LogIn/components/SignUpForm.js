@@ -41,7 +41,7 @@ class SignUpForm extends Component {
   }
 
   render() { 
-    console.log(this.props)
+    // console.log(this.props)
     let btnText = this.props.logIn ?  "Create Account" : "Log in";
     let user = { ...this.state.user };
     let validateForm = this.validateForm();
